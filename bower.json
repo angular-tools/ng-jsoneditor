@@ -1,7 +1,7 @@
 {
   "name": "ng-jsoneditor",
   "main": "ng-jsoneditor.min.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/angular-tools/ng-jsoneditor",
   "authors": [
     "angular-tools <dev@minutephp.com>"

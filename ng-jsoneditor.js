@@ -71,9 +71,9 @@
 
                 ngModel.$render = function () {
                     if (($scope.preferText === true) && !angular.isObject(ngModel.$viewValue)) {
-                        editor.setText(ngModel.$viewValue);
+                        editor.setText(ngModel.$viewValue || '{}');
                     } else {
-                        editor.set(ngModel.$viewValue);
+                        editor.set(ngModel.$viewValue || {});
                     }
                 };
 
