@@ -58,6 +58,13 @@ Any changes to Jsoneditor or ng-model are reflected instantly.
 
 Instead of `editor.get()` now you can simply access your `ng-model`, or `$scope.obj.data` in this case, to get or set values.
 
+If you would to get and set your JSON data as text (instead of JSON Objects), then you can set `prefix-text="true"` like this:
+
+```html
+<div ng-jsoneditor ng-model="obj.text" prefer-text="true"></div>
+```
+
+
 ### Jsoneditor direct access
 
 For more interaction with the Jsoneditor instance in the directive, we provide a direct access to it.
