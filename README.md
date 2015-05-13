@@ -39,7 +39,7 @@ Finally, add the directive to your html:
 
 [Try this fiddle](http://)
 
-#Sample code
+### Sample code
 
 ```javascript
 myAppModule.controller('MyController', [ '$scope', function($scope) {
@@ -79,4 +79,4 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 
 ### Licence
 
-[You are free to do whatever you want to do with this](LICENSE.md)
+[The Artistic License 2.0](LICENSE.md)
