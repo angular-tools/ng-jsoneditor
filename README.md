@@ -79,4 +79,4 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 
 ### Licence
 
-[The Artistic License 2.0](LICENSE.md)
+The Artistic License 2.0: see LICENSE.md

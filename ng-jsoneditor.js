@@ -63,7 +63,7 @@
                             }
                         }
                     }
-                });
+                }, true);
 
                 $scope.$on('$destroy', function () {
                     //remove jsoneditor?
