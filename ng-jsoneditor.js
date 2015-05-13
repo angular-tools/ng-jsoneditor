@@ -1,12 +1,14 @@
 (function () {
     var module = angular.module('ng.jsoneditor', []);
-    var defaults = {};
+    module.constant('ngJsoneditorConfig', {});
 
-    module.directive('ngJsoneditor', ['$timeout', function ($timeout) {
+    module.directive('ngJsoneditor', ['ngJsoneditorConfig', '$timeout', function (ngJsoneditorConfig, $timeout) {
+        var defaults = ngJsoneditorConfig || {};
+
         return {
             restrict: 'A',
             require: 'ngModel',
-            scope: {'options': '='},
+            scope: {'options': '=', 'ngJsoneditor': '='},
             link: function ($scope, element, attrs, ngModel) {
                 var editor;
 
@@ -32,7 +34,15 @@
 
                     element.html('');
 
-                    return new JSONEditor(element[0], theOptions);
+                    var instance = new JSONEditor(element[0], theOptions);
+
+                    if ($scope.ngJsoneditor instanceof Function) {
+                        $timeout(function () {
+                            $scope.ngJsoneditor(instance);
+                        });
+                    }
+
+                    return instance;
                 }
 
                 $scope.$watch('options', function (newValue, oldValue) {
