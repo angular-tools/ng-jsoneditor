@@ -8,7 +8,7 @@
         return {
             restrict: 'A',
             require: 'ngModel',
-            scope: {'options': '=', 'ngJsoneditor': '='},
+            scope: {'options': '=', 'ngJsoneditor': '=', 'preferText': '='},
             link: function ($scope, element, attrs, ngModel) {
                 var editor;
 
@@ -22,7 +22,7 @@
                         change: function () {
                             $timeout(function () {
                                 if (editor) {
-                                    ngModel.$setViewValue(editor.get());
+                                    ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
 
                                     if (settings && settings.hasOwnProperty('change')) {
                                         settings.change();
@@ -70,7 +70,11 @@
                 });
 
                 ngModel.$render = function () {
-                    editor.set(ngModel.$viewValue);
+                    if (($scope.preferText === true) && !angular.isObject(ngModel.$viewValue)) {
+                        editor.setText(ngModel.$viewValue);
+                    } else {
+                        editor.set(ngModel.$viewValue);
+                    }
                 };
 
                 editor = _createEditor($scope.options);
