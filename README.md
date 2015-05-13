@@ -37,7 +37,9 @@ Finally, add the directive to your html:
 
 ## Demo
 
-[Try this fiddle](http://)
+[Try this fiddle](http://jsfiddle.net/angulartools/sd3at5ek/)
+
+http://jsfiddle.net/angulartools/sd3at5ek/
 
 ### Sample code
 
