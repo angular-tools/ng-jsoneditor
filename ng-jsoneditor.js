@@ -10,7 +10,9 @@
             require: 'ngModel',
             scope: {'options': '=', 'ngJsoneditor': '=', 'preferText': '='},
             link: function ($scope, element, attrs, ngModel) {
+                var debounceTo, debounceFrom;
                 var editor;
+                var internalTrigger = false;
 
                 if (!angular.isDefined(window.JSONEditor)) {
                     throw new Error("Please add the jsoneditor.js script first!");
@@ -20,15 +22,21 @@
                     var settings = angular.extend({}, defaults, options);
                     var theOptions = angular.extend({}, settings, {
                         change: function () {
-                            $timeout(function () {
+                            if (typeof debounceTo !== 'undefined') {
+                                $timeout.cancel(debounceTo);
+                            }
+
+                            debounceTo = $timeout(function () {
                                 if (editor) {
+                                    internalTrigger = true;
                                     ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
+                                    internalTrigger = false;
 
                                     if (settings && settings.hasOwnProperty('change')) {
                                         settings.change();
                                     }
                                 }
-                            });
+                            }, settings.timeout || 100);
                         }
                     });
 
@@ -37,9 +45,7 @@
                     var instance = new JSONEditor(element[0], theOptions);
 
                     if ($scope.ngJsoneditor instanceof Function) {
-                        $timeout(function () {
-                            $scope.ngJsoneditor(instance);
-                        });
+                        $timeout(function () { $scope.ngJsoneditor(instance);});
                     }
 
                     return instance;
@@ -57,7 +63,7 @@
                                     editor.setName(v);
                                 } else { //other settings cannot be changed without re-creating the JsonEditor
                                     editor = _createEditor(newValue);
-                                    ngModel.$render();
+                                    $scope.updateJsonEditor();
                                     return;
                                 }
                             }
@@ -69,15 +75,30 @@
                     //remove jsoneditor?
                 });
 
-                ngModel.$render = function () {
-                    if (($scope.preferText === true) && !angular.isObject(ngModel.$viewValue)) {
-                        editor.setText(ngModel.$viewValue || '{}');
-                    } else {
-                        editor.set(ngModel.$viewValue || {});
+                $scope.updateJsonEditor = function (newValue) {
+                    if (internalTrigger) return; //ignore if called by $setViewValue
+
+                    if (typeof debounceFrom !== 'undefined') {
+                        $timeout.cancel(debounceFrom);
                     }
+
+                    debounceFrom = $timeout(function () {
+                        if (($scope.preferText === true) && !angular.isObject(ngModel.$viewValue)) {
+                            editor.setText(ngModel.$viewValue || '{}');
+                        } else {
+                            editor.set(ngModel.$viewValue || {});
+                        }
+                    }, $scope.options.timeout || 100);
                 };
 
                 editor = _createEditor($scope.options);
+
+                if ($scope.options.hasOwnProperty('expanded')) {
+                    $timeout($scope.options.expanded ? function () {editor.expandAll()} : function () {editor.collapseAll()}, ($scope.options.timeout || 100) + 100);
+                }
+
+                ngModel.$render = $scope.updateJsonEditor;
+                $scope.$watch(function () { return ngModel.$modelValue; }, $scope.updateJsonEditor, true); //if someone changes ng-model from outside
             }
         };
     }]);

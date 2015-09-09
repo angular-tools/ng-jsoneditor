@@ -64,6 +64,13 @@ If you would to get and set your JSON data as text (instead of JSON Objects), th
 <div ng-jsoneditor ng-model="obj.text" prefer-text="true"></div>
 ```
 
+### Additional options
+
+There are some additional options specific to ng-jsoneditor only.
+
+`expanded`: can be set to either `true` or `false` to have Jsoneditor fully expanded or collapsed by default.
+
+`timeout`: the timeout interval after which the `ng-model` is updated to reflect changes in Jsoneditor (as described [here](https://github.com/josdejong/jsoneditor/issues/192)). Default is 100ms.
 
 ### Jsoneditor direct access
 
