@@ -13,6 +13,7 @@
                 var debounceTo, debounceFrom;
                 var editor;
                 var internalTrigger = false;
+                var init = false;
 
                 if (!angular.isDefined(window.JSONEditor)) {
                     throw new Error("Please add the jsoneditor.js script first!");
@@ -58,6 +59,7 @@
 
                             if (newValue[k] !== oldValue[k]) {
                                 if (k === 'mode') {
+                                    mode = v;
                                     editor.setMode(v);
                                 } else if (k === 'name') {
                                     editor.setName(v);
@@ -88,14 +90,18 @@
                         } else {
                             editor.set(ngModel.$viewValue || {});
                         }
+
+                        if (!init) {
+                            init = true;
+
+                            if ($scope.options.hasOwnProperty('expanded') && (!$scope.options.mode || (/^(tree|view)$/i.test($scope.options.mode)))) { //default mode is tree
+                                editor[$scope.options.expanded ? 'expandAll' : 'collapseAll']();
+                            }
+                        }
                     }, $scope.options.timeout || 100);
                 };
 
                 editor = _createEditor($scope.options);
-
-                if ($scope.options.hasOwnProperty('expanded')) {
-                    $timeout($scope.options.expanded ? function () {editor.expandAll()} : function () {editor.collapseAll()}, ($scope.options.timeout || 100) + 100);
-                }
 
                 ngModel.$render = $scope.updateJsonEditor;
                 $scope.$watch(function () { return ngModel.$modelValue; }, $scope.updateJsonEditor, true); //if someone changes ng-model from outside
