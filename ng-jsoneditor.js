@@ -28,7 +28,7 @@
                             }
 
                             debounceTo = $timeout(function () {
-                                if (editor) {
+                                if (editor && init) {
                                     internalTrigger = true;
                                     ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
                                     internalTrigger = false;
