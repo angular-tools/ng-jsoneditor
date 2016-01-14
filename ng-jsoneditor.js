@@ -30,7 +30,6 @@
                                 if (editor) {
                                     internalTrigger = true;
                                     ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
-                                    internalTrigger = false;
 
                                     if (settings && settings.hasOwnProperty('change')) {
                                         settings.change();
@@ -76,7 +75,11 @@
                 });
 
                 $scope.updateJsonEditor = function (newValue) {
-                    if (internalTrigger) return; //ignore if called by $setViewValue
+                    if (internalTrigger) {
+                        //ignore if called by $setViewValue (after debounceTo)
+                        internalTrigger = false;
+                        return;
+                    }
 
                     if (typeof debounceFrom !== 'undefined') {
                         $timeout.cancel(debounceFrom);
