@@ -29,10 +29,15 @@
                             debounceTo = $timeout(function () {
                                 if (editor) {
                                     internalTrigger = true;
-                                    ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
+                                    var error = undefined;
+                                    try {
+                                        ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
+                                    } catch (err) {
+                                        error = err;
+                                    }
 
                                     if (settings && settings.hasOwnProperty('change')) {
-                                        settings.change();
+                                        settings.change(error);
                                     }
                                 }
                             }, settings.timeout || 100);
