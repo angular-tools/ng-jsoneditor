@@ -93,6 +93,12 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 }]);
 ```
 
+### Contributors
+
+- Sanchit Bhatnagar
+- Manuel B.
+- Alan blount
+
 ### Licence
 
 The Artistic License 2.0: see LICENSE.md
