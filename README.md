@@ -9,11 +9,17 @@ Angular version of the insanely cool [jsoneditor](https://github.com/josdejong/j
 
 ## Usage
 
-You can get it from [Bower](http://bower.io/)
+[Bower](http://bower.io/) option:
 
 ```sh
 bower install angular-tools/ng-jsoneditor
 ```
+or NPM option:
+
+```sh
+npm install ng-jsoneditor
+```
+
 
 This will copy the ng-jsoneditor.js files into a `bower_components` folder, along with its dependencies. Load the script files in your application:
 
