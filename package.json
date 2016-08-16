@@ -1,0 +1,31 @@
+{
+  "author": {
+    "email": "",
+    "name": "angular-tools"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-tools/ng-jsoneditor/issues"
+  },
+  "peerDependencies": {
+    "jsoneditor": "^5.5.6"
+  },
+  "description": "Angular version of the insanely cool jsoneditor",
+  "devDependencies": {},
+  "directories": {},
+  "homepage": "https://github.com/angular-tools/ng-jsoneditor",
+  "keywords": [
+    "angular",
+    "browser",
+    "client-side",
+    "framework",
+    "rest"
+  ],
+  "license": "MIT",
+  "main": "ng-jsoneditor.js",
+  "name": "ng-jsoneditor",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-tools/ng-jsoneditor.git"
+  },
+  "version": "1.0.0"
+}
