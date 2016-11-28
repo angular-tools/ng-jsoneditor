@@ -104,6 +104,7 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 - Sanchit Bhatnagar
 - Manuel B.
 - Alan blount
+- xshen2026
 
 ### Licence
 
