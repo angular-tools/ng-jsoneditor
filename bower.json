@@ -13,7 +13,7 @@
   "license": "The Artistic License 2.0",
   "dependencies": {
     "angular": "~1.x",
-    "jsoneditor": "~4"
+    "jsoneditor": "~5.5.10"
   },
   "ignore": [
     "**/.*",
